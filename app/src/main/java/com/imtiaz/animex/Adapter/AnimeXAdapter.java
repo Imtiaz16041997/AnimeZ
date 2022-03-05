@@ -1,5 +1,6 @@
 package com.imtiaz.animex.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,7 @@ public class AnimeXAdapter extends RecyclerView.Adapter<AnimeXViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AnimeXViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AnimeXViewHolder holder, @SuppressLint("RecyclerView") int position) {
             holder.textView_MovieName.setText(animeX.get(position).getTitles().getEn());
             holder.textView_MovieName.setSelected(true);
             try{
@@ -52,6 +53,14 @@ public class AnimeXAdapter extends RecyclerView.Adapter<AnimeXViewHolder> {
             }catch(Exception e){
                 e.printStackTrace();
             }
+
+        holder.index_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                listener.OnMovieClicked(animeX.get(position).getId());
+                listener.OnAnimeClicked(String.valueOf(animeX.get(position).getId()));
+            }
+        });
 
 
     }

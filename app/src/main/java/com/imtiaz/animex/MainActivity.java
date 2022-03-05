@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements OnAnimeClickListe
         @Override
         public void onError(String message) {
             dialog.dismiss();
-            Toast.makeText(MainActivity.this, "An Error has been occurred", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "An Error has been occurred in main", Toast.LENGTH_SHORT).show();
 
         }
     };
@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity implements OnAnimeClickListe
         adapter = new AnimeXAdapter(MainActivity.this,response.getData().getDocuments(),this);
         recyclerView.setAdapter(adapter);
     }
-
-
 
     @Override
     public void OnAnimeClicked(String id) {

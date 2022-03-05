@@ -5,32 +5,65 @@ import java.util.List;
 
 public class  Document{
 
-    private int id;
-    private int anilist_id;
-    private int mal_id;
-    private int tmdb_id;
-    private int format;
-    private int status;
-    Titles titles;
+     long id;
+     int anilist_id;
+     int mal_id;
+     int tmdb_id;
+     int format;
+     int status;
+    Titles titles ;
     Descriptions descriptions;
-    private ArrayList<String> genres;
-    private String start_date;
-    private String end_date;
-    private int season_period;
-    private int season_year;
-    private int episodes_count;
-    private int episode_duration;
-    private int weekly_airing_day;
-    private String trailer_url;
-    private String cover_image;
-    private String cover_color;
-    private String banner_image;
-    private int score;
-    private boolean nsfw;
-    private boolean hasCoverImage;
-    private int sequel;
-    private int prequel;
-    private ArrayList<Saga> sagas;
+     ArrayList<String> genres;
+     String start_date;
+     String end_date;
+     int season_period;
+     int season_year;
+     int episodes_count;
+     int episode_duration;
+     int weekly_airing_day;
+     String trailer_url;
+     String cover_image;
+     String cover_color;
+     String banner_image;
+     int score;
+     boolean nsfw;
+     boolean hasCoverImage;
+     int sequel;
+     int prequel;
+     ArrayList<Saga> sagas;
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getSeason_year() {
+        return season_year;
+    }
+
+    public void setSeason_year(int season_year) {
+        this.season_year = season_year;
+    }
+
+    public int getEpisodes_count() {
+        return episodes_count;
+    }
+
+    public void setEpisodes_count(int episodes_count) {
+        this.episodes_count = episodes_count;
+    }
+
+    public int getEpisode_duration() {
+        return episode_duration;
+    }
+
+    public void setEpisode_duration(int episode_duration) {
+        this.episode_duration = episode_duration;
+    }
 
     public int getWeekly_airing_day() {
         return weekly_airing_day;
@@ -40,13 +73,25 @@ public class  Document{
         this.weekly_airing_day = weekly_airing_day;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    //    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
+
+    //    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public int getAnilist_id() {
         return anilist_id;
@@ -136,29 +181,7 @@ public class  Document{
         this.season_period = season_period;
     }
 
-    public int getSeason_year() {
-        return season_year;
-    }
 
-    public void setSeason_year(int season_year) {
-        this.season_year = season_year;
-    }
-
-    public int getEpisodes_count() {
-        return episodes_count;
-    }
-
-    public void setEpisodes_count(int episodes_count) {
-        this.episodes_count = episodes_count;
-    }
-
-    public int getEpisode_duration() {
-        return episode_duration;
-    }
-
-    public void setEpisode_duration(int episode_duration) {
-        this.episode_duration = episode_duration;
-    }
 
     public String getTrailer_url() {
         return trailer_url;
