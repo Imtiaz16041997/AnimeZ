@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.imtiaz.animex.Listeners.OnAnimeClickListener;
 import com.imtiaz.animex.Model.Document;
 
 import com.imtiaz.animex.R;
@@ -18,11 +21,18 @@ import java.util.List;
 public class AnimeXAdapter extends RecyclerView.Adapter<AnimeXViewHolder> {
     Context context;
     List<Document> animeX;
+    OnAnimeClickListener listener;
+
+//    public AnimeXAdapter(Context context, List<Document> animeX) {
+//        this.context = context;
+//        this.animeX = animeX;
+//    }
 
 
-    public AnimeXAdapter(Context context, List<Document> animeX) {
+    public AnimeXAdapter(Context context, List<Document> animeX, OnAnimeClickListener listener) {
         this.context = context;
         this.animeX = animeX;
+        this.listener = listener;
     }
 
     @NonNull
@@ -55,11 +65,13 @@ public class AnimeXAdapter extends RecyclerView.Adapter<AnimeXViewHolder> {
     class AnimeXViewHolder extends RecyclerView.ViewHolder{
         TextView textView_MovieName;
         ImageView imageView_MoviePoster;
+        CardView index_container;
 
         public AnimeXViewHolder(@NonNull View itemView) {
             super(itemView);
             textView_MovieName = itemView.findViewById(R.id.textView_MovieName);
             imageView_MoviePoster = itemView.findViewById(R.id.imageView_MoviePoster);
+            index_container = itemView.findViewById(R.id.index_container);
 
         }
     }

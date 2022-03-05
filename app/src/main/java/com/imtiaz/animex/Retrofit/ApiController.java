@@ -1,7 +1,16 @@
 package com.imtiaz.animex.Retrofit;
 
 import android.content.Context;
+import android.widget.Toast;
 
+import com.imtiaz.animex.Adapter.AnimeXAdapter;
+import com.imtiaz.animex.Listeners.OnSearchApiListener;
+import com.imtiaz.animex.MainActivity;
+import com.imtiaz.animex.Model.Root;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -38,6 +47,31 @@ public class ApiController {
 //    public GetAnimeId getAnimeXId(){
 //        return retrofit.create(GetAnimeId.class);
 //    }
+
+    public void AnimeList(OnSearchApiListener listener){
+        Call<Root> call = ApiController
+                .getInstance()
+                .getAnimeXApi().getAnimeXs();
+
+        call.enqueue(new Callback<Root>() {
+            @Override
+            public void onResponse(Call<Root> call, Response<Root> response) {
+//                anime = response.body();
+//                adapter = new AnimeXAdapter(MainActivity.this,anime.getData().getDocuments());
+//                recyclerView.setAdapter(adapter);
+                if(!response.isSuccessful()){
+                    Toast.makeText(mContext, "couldn't fetch data!!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                listener.Response(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Root> call, Throwable t) {
+                listener.onError(t.getMessage());
+            }
+        });
+    }
 
 
 

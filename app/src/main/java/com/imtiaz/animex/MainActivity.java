@@ -5,12 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.imtiaz.animex.Activity.DetailsActivity;
 import com.imtiaz.animex.Adapter.AnimeXAdapter;
 import com.imtiaz.animex.Listeners.OnAnimeClickListener;
+import com.imtiaz.animex.Listeners.OnSearchApiListener;
 import com.imtiaz.animex.Model.Root;
 import com.imtiaz.animex.Retrofit.ApiController;
 
@@ -23,43 +26,50 @@ public class MainActivity extends AppCompatActivity implements OnAnimeClickListe
 
     RecyclerView recyclerView;
     AnimeXAdapter adapter;
-    Root anime;
-
+    ApiController controller;
+    ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        dialog = new ProgressDialog(this);
         recyclerView = findViewById(R.id.recyclerView);
+        controller = new ApiController(this);
+        controller.AnimeList(listener);
+
+        dialog.setTitle("Wait a minute to fetch");
+        dialog.show();
+
+    }
+    private final OnSearchApiListener listener = new OnSearchApiListener(){
+
+        @Override
+        public void Response(Root response) {
+            dialog.dismiss();
+            if(response == null){
+                Toast.makeText(MainActivity.this, "No Data is Available", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            showResult(response);
+        }
+
+        @Override
+        public void onError(String message) {
+            dialog.dismiss();
+            Toast.makeText(MainActivity.this, "An Error has been occurred", Toast.LENGTH_SHORT).show();
+
+        }
+    };
+
+    private void showResult(Root response) {
         recyclerView.setHasFixedSize(true);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(3, LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
-
-        animeProcess();
-
+        adapter = new AnimeXAdapter(MainActivity.this,response.getData().getDocuments(),this);
+        recyclerView.setAdapter(adapter);
     }
 
-    private void animeProcess() {
-        Call<Root> call = ApiController
-                                    .getInstance()
-                                    .getAnimeXApi().getAnimeXs();
-
-        call.enqueue(new Callback<Root>() {
-            @Override
-            public void onResponse(Call<Root> call, Response<Root> response) {
-                anime = response.body();
-                adapter = new AnimeXAdapter(MainActivity.this,anime.getData().getDocuments());
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onFailure(Call<Root> call, Throwable t) {
-
-            }
-        });
-
-    }
 
 
     @Override
